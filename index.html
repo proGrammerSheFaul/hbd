@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>🎂 Happy Birthday!</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      font-family: 'Comic Sans MS', cursive;
+      background: radial-gradient(circle, #ffe9ec, #fcd0d3);
+      text-align: center;
+      color: #fff;
+    }
+
+    h1 {
+      font-size: 3em;
+      margin-top: 10vh;
+      background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
+      background-size: 400%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: rainbow 5s linear infinite;
+    }
+
+    @keyframes rainbow {
+      0% { background-position: 0% }
+      100% { background-position: 400% }
+    }
+
+    .message {
+      font-size: 1.5em;
+      margin: 20px;
+      color: #222;
+    }
+
+    button {
+      background: #ff4081;
+      border: none;
+      color: white;
+      padding: 15px 25px;
+      font-size: 1.2em;
+      border-radius: 25px;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: transform 0.2s ease;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+      background: #f50057;
+    }
+
+    .balloon {
+      position: absolute;
+      width: 40px;
+      height: 55px;
+      background: red;
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      animation: float 10s infinite ease-in;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(100vh); opacity: 1; }
+      100% { transform: translateY(-100vh); opacity: 0; }
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      width: 100%;
+      height: 100%;
+    }
+
+    .glow {
+      text-shadow: 0 0 10px #fff, 0 0 20px #f0f, 0 0 30px #f0f;
+    }
+  </style>
+</head>
+<body>
+  <h1 class="glow">🎉 Happy Birthday! 🎂</h1>
+  <p class="message">May your day be filled with love, laughter, and cake!</p>
+  <p class="message">09/07/2003</p>
+  <button onclick="startMagic()">✨ Click for Magic</button>
+  <canvas id="confetti-canvas"></canvas>
+  <audio id="music" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+
+  <script>
+    function startMagic() {
+      playMusic();
+      launchConfetti();
+      releaseBalloons();
+      alert("🎈🎁 Surprise! Enjoy your special day!");
+    }
+
+    function playMusic() {
+      const music = document.getElementById("music");
+      music.play().catch(() => {
+        console.log("Autoplay blocked. User must interact first.");
+      });
+    }
+
+    function releaseBalloons() {
+      for (let i = 0; i < 15; i++) {
+        let balloon = document.createElement("div");
+        balloon.classList.add("balloon");
+        balloon.style.left = Math.random() * 100 + "vw";
+        balloon.style.backgroundColor = getRandomColor();
+        balloon.style.animationDuration = (6 + Math.random() * 5) + "s";
+        document.body.appendChild(balloon);
+        setTimeout(() => balloon.remove(), 10000);
+      }
+    }
+
+    function getRandomColor() {
+      const colors = ['#e91e63', '#9c27b0', '#03a9f4', '#00bcd4', '#4caf50', '#ff9800'];
+      return colors[Math.floor(Math.random() * colors.length)];
+    }
+
+    function launchConfetti() {
+      confetti({
+        particleCount: 200,
+        spread: 100,
+        origin: { y: 0.6 },
+        colors: ['#ff0a54', '#ff477e', '#ff7096', '#a1c4fd', '#c2ffd8'],
+      });
+    }
+
+    // Load confetti library
+    (function () {
+      const script = document.createElement("script");
+      script.src = "https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js";
+      document.head.appendChild(script);
+    })();
+  </script>
+</body>
+</html>
